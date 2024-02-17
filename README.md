@@ -1,2 +1,2 @@
 # Freshers-find
-An app for college seniors for trading of old items to juniors
+A website for college seniors for trading of old items to juniors
