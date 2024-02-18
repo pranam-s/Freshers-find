@@ -121,6 +121,19 @@ nav img {
     gap: 16px;
 }
 
+.buy-now h1{
+    display: flex;
+    align-items: center;
+    margin-left: -130px;
+}
+.buy-now a{
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    
+
+}
 .buy-now img {
     height: 80px;
     width: 80px;

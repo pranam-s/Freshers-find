@@ -408,6 +408,19 @@ body {
     position: relative;
     text-shadow: 0px 3px black;
     box-shadow: 4px 4px 4px black;
+    cursor: pointer;
+}
+
+
+.carousel-cell a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    pointer-events: all;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .carousel-cell img {
@@ -458,4 +471,118 @@ body {
 
 a {
     text-decoration: none;
+}
+
+
+
+
+.footericons ul {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.footericons {
+    width: 100%;
+    margin-bottom: 20px;
+    margin: 0 15px;
+    position: relative;
+}
+
+.footericons li {
+    display: flex;
+    width: 25%;
+    justify-content: space-evenly;
+}
+
+.footericons img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 2px;
+    height: 100%;
+    background-color: #fff;
+
+}
+
+
+.footericons li img {
+    margin-right: 10px;
+}
+
+.footericons li:after {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 50px;
+    background-color: rgba(224, 208, 208, 0.5);
+    margin-left: 10px;
+}
+
+footer {
+    margin-top: 50px;
+    background-color: #060e30;
+    background-image: linear-gradient(to bottom right, black, #01061e);
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: space-between;
+}
+
+.footericons li:last-child:after {
+    display: none;
+}
+
+.footertext {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-shadow: 0 1px wheat;
+}
+
+
+.work ul,
+.contactus ul {
+    width: 33vw;
+    gap: 40px;
+    display: inline-block;
+    display: flex;
+    justify-content: space-evenly;
+    color: rgb(143, 140, 140);
+    font-size: 1.4rem;
+    font-weight: 300;
+    font-family: monospace;
+}
+
+.Bargainbazar {
+    font-size: 1.5rem;
+    color: var(--color-hover);
+    text-shadow: 0 2px black;
+
+}
+
+.work ul li,
+.contactus ul li {
+    display: block;
+}
+
+.work ul li:hover,
+.contactus ul li:hover {
+    transform: scale(1.05);
+    color: white;
+    transition: color 0.5s ease;
+    cursor: pointer;
+}
+
+
+.footericons li img:hover {
+    filter: brightness(110%) contrast(110%) saturate(110%);
+    cursor: pointer;
+}
+
+.footericons img {
+    filter: brightness(100%) contrast(60%) saturate(10%);
 }
