@@ -19,7 +19,7 @@ login_manager.login_view = 'login'
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     fullname = db.Column(db.String(15))
-    college = db.Column(db.String(12), unique=True)
+    collegeid = db.Column(db.String(12), unique=True)
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(80))
 
@@ -68,23 +68,34 @@ def get_item(item_id):
 
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.form.get('username')
+    if current_user.is_authenticated:
+        return jsonify({'message': 'You are logged in'}), 200
+    email = request.form.get('email')
     password = request.form.get('password')
     remember = 'remember' in request.form
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(email=email).first()
     if user and check_password_hash(user.password, password):
         login_user(user, remember=remember)
         return jsonify({'message': 'Logged in successfully'}), 200
     return jsonify({'message': 'Invalid credentials'}), 401
 
+@app.route('/is_logged_in', methods=['GET'])
+def is_logged_in():
+    if current_user.is_authenticated:
+        return jsonify({'message': 'User is logged in'}), 200
+    else:
+        return jsonify({'message': 'User is not logged in'}), 401
+
 @app.route('/signup', methods=['POST'])
 def signup():
+    if current_user.is_authenticated:
+        return jsonify({'message': 'You are logged in'}), 200
     fullname = request.form.get('fullname')
-    college = request.form.get('college')
+    collegeid = request.form.get('collegeid')
     email = request.form.get('email')
     password = request.form.get('password')
-    hashed_password = generate_password_hash(password, method='sha256')
-    new_user = User(username=username, college=college, email=email, password=hashed_password)
+    hashed_password = generate_password_hash(password)
+    new_user = User(fullname=fullname, collegeid=collegeid, email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message': 'Registered successfully'}), 201
