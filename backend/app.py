@@ -18,7 +18,8 @@ login_manager.login_view = 'login'
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(15), unique=True)
+    fullname = db.Column(db.String(15))
+    college = db.Column(db.String(12), unique=True)
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(80))
 
@@ -31,20 +32,6 @@ class Item(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     image = db.Column(db.LargeBinary)
 
-class LoginForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
-    remember = BooleanField('remember me')
-
-class RegisterForm(FlaskForm):
-    email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
-
-class ItemForm(FlaskForm):
-    name = StringField('name', validators=[InputRequired(), Length(max=100)])
-    description = StringField('description', validators=[InputRequired(), Length(max=500)])
-    cost = IntegerField('cost', validators=[InputRequired()])
 
 @app.route('/item', methods=['POST'])
 @login_required
@@ -92,25 +79,15 @@ def login():
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    username = request.form.get('username')
+    fullname = request.form.get('fullname')
+    college = request.form.get('college')
     email = request.form.get('email')
     password = request.form.get('password')
     hashed_password = generate_password_hash(password, method='sha256')
-    new_user = User(username=username, email=email, password=hashed_password)
+    new_user = User(username=username, college=college, email=email, password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({'message': 'Registered successfully'}), 201
-
-@app.route('/dashboard', methods=['GET', 'POST'])
-@login_required
-def dashboard():
-    form = ItemForm()
-    if form.validate_on_submit():
-        new_item = Item(name=form.name.data, description=form.description.data, cost=form.cost.data, user_id=current_user.id)
-        db.session.add(new_item)
-        db.session.commit()
-        return redirect(url_for('dashboard'))
-    return render_template('dashboard.html', form=form)
 
 @app.route('/logout')
 @login_required
