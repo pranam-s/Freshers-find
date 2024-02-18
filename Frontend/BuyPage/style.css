@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+:root {
+    --color-black: rgb(3, 3, 27);
+    --color-purple: rgb(32, 33, 61);
+    --color-border: rgb(54, 56, 81);
+    --color-orange: rgb(248, 64, 24);
+}
+
+body {
+    background-color: var(--color-purple);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+main {
+    background-color: var(--color-black);
+    min-height: 90vh;
+    width: 90vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    border: 6px solid var(--color-border);
+    border-radius: 20px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3em;
+    color: var(--color-orange);
+}
+.confirmation-tick {
+    width: 75px; /* Adjust as needed */
+    height: 75px; /* Adjust as needed */
+    display: block;
+    margin: 0 auto; /* Centers the image horizontally */
+}
